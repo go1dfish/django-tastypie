@@ -2195,6 +2195,12 @@ class ModelResource(Resource):
                     setattr(related_obj, field_object.related_name, bundle.obj)
 
                 related_resource = field_object.get_related_resource(related_obj)
+                print 'Bundle data: %r' % bundle.data
+
+                if isinstance(bundle.data.get(field_name), unicode):
+                    # Reference by ID/resource
+                    continue
+
                 related_bundle = related_resource.build_bundle(
                     obj=related_obj,
                     data=bundle.data.get(field_name),
