@@ -2200,6 +2200,11 @@ class ModelResource(Resource):
                     # Reference by ID/resource
                     continue
 
+                if not bundle.data.get(field_name):
+                    # If relationship wasn't passed in bundle don't bother saving the
+                    # related model through resources
+                    continue
+
                 related_bundle = related_resource.build_bundle(
                     obj=related_obj,
                     data=bundle.data.get(field_name),
